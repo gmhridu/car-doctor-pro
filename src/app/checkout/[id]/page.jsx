@@ -29,7 +29,7 @@ const CheckoutPage = ({params}) => {
           ...services,
         };
 
-        const {data: booking} = await axios.post(`http://localhost:3000/checkout/api/new-booking`, newBookings)
+        const {data: booking} = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/checkout/api/new-booking`, newBookings)
 
         if(booking){
           toast.success('Booking Successfully!',{

@@ -10,7 +10,7 @@ const UpdatePage = ({params}) => {
     const [booking, setBooking] = useState([]);
 
     const loadBooking = async()=> {
-      const {data} = await axios(`http://localhost:3000/my-bookings/api/booking/${params?.id}`)
+      const {data} = await axios(`${process.env.NEXT_PUBLIC_BASE_URL}/my-bookings/api/booking/${params?.id}`)
       const booked = data.data;
       setBooking(booked);
     }
@@ -22,7 +22,7 @@ const UpdatePage = ({params}) => {
         date: e.target.date.value,
         address: e.target.address.value,
       }
-      const {data} = await axios.patch(`http://localhost:3000/my-bookings/api/booking/${params?.id}`, updatedBooking);
+      const {data} = await axios.patch(`${process.env.NEXT_PUBLIC_BASE_URL}/my-bookings/api/booking/${params?.id}`, updatedBooking);
 
       if(data){
         toast.success('Booking Updated Successfully!')

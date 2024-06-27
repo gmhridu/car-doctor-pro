@@ -5,6 +5,7 @@ import Footer from "@/components/shared/Footer";
 import AuthProvider from "@/services/AuthProvider";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import { Suspense } from 'react';
 
 const nunito = Nunito_Sans({ subsets: ['latin'], weight:['400', '500', '600', '700', '800', '900'], style:['normal'] }); 
 
@@ -20,12 +21,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="carDocotorTheme">
       <body className={nunito.className}>
+      <Suspense>
       <AuthProvider>
         <ToastContainer/>
         <Navbar />
          {children}
         <Footer />
       </AuthProvider>
+      </Suspense>
       </body>
     </html>
   );

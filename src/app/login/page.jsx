@@ -3,32 +3,31 @@
 import Image from 'next/image'
 import Link from 'next/link';
 import React from 'react'
-import {signIn} from 'next-auth/react'
+import {signIn, useSession} from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation';
 import SocialSignIn from '@/components/shared/SocialSignIn';
 
 
 
 const LoginPage = () => {
-  const router = useRouter()
-  const searchParams = useSearchParams()
+  const router = useRouter();
+  const session = useSession();
+  const searchParams = useSearchParams();
+  const path = searchParams.get("redirect");
 
-  const path = searchParams.get('redirect')
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    const resp = await signIn("credentials", {
+      email,
+      password,
+      redirect: true,
+      callbackUrl: path ? path : "/",
+    });
+  };
 
-  const handleLogin = async(e)=> {
-    e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
 
-    const res = await signIn('credentials', {
-      email, password, redirect: true,
-      callbackUrl: path ? path : '/',
-    })
-
-    if(res?.status === 200){
-      router.push('/');
-    }
-  }
   return (
     <div className="container mx-auto flex items-center justify-center my-16">
       <div className="grid grid-cols-2 gap-12">

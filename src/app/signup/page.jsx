@@ -17,7 +17,7 @@ const SignupPage = () => {
       email: e.target.email.value,
       password: e.target.password.value,
     };
-    const res = await axios.post('http://localhost:3000/signup/api', newUser);
+    const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/signup/api`, newUser);
 
     console.log(res.data)
     if(res?.status === 200){

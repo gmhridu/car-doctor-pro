@@ -11,7 +11,7 @@ const MyBookingsPage = () => {
     const [bookings, setBookings] = useState([]);
 
     const loadData = async()=> {
-        const res = await axios(`http://localhost:3000/my-bookings/api/${session?.data?.user?.email}`)
+        const res = await axios(`${process.env.NEXT_PUBLIC_BASE_URL}/my-bookings/api/${session?.data?.user?.email}`)
         const myBookings = res.data;
         setBookings(myBookings?.myBookings);
     }
@@ -22,7 +22,7 @@ const MyBookingsPage = () => {
     }, [session])
 
     const handleDelete = async(id) => {
-        const deleted = await axios.delete(`http://localhost:3000/my-bookings/api/booking/${id}`)
+        const deleted = await axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/my-bookings/api/booking/${id}`)
         if(deleted?.data?.response?.deletedCount > 0){
           toast.success('Booking Deleted Successfully!')
             loadData();
